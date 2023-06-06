@@ -92,6 +92,14 @@ How to launch the example file:
 ros2 launch flir_spinnaker_ros2 blackfly_s_gige.launch.py camera_name:=blackfly_0 serial:="'20435008'"
 ```
 
+## Topics
+
+### Publisher:
+`/image_raw` (type: `sensor_msgs/msg/Image`)
+`/camera_info` (type: `sensor_msgs/msg/CameraInfo`)
+
+[Note] By default, the values of the parameters in `/camera_info` are initialized to zero. The values need to be provided through [camera calibration](https://github.com/ros-perception/image_pipeline) and subsequently stored in `camerainfo_url` yaml file.
+
 ## Camera synchronization
 
 In the ``launch`` folder you can find a working example for launching
