@@ -1,4 +1,4 @@
-# FLIR/Spinnaker ROS2 driver
+# Image Acquisition by FLIR/Spinnaker ROS2 driver
 
 This is a ROS2 driver for the FLIR cameras using the [Spinnaker SDK](https://www.flir.com/products/spinnaker-sdk/?vertical=machine+vision&segment=iis).
 
