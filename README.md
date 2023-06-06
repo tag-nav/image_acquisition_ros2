@@ -1,21 +1,8 @@
 # FLIR/Spinnaker ROS2 driver
 
-Simple ROS2 driver for the FLIR cameras using the [Spinnaker
-SDK](http://softwareservices.flir.com/Spinnaker/latest/index.htmlspinnaker).
+This is a ROS2 driver for the FLIR cameras using the [Spinnaker SDK](https://www.flir.com/products/spinnaker-sdk/?vertical=machine+vision&segment=iis).
 
-NOTE: This driver is not written or supported by FLIR.
-
-## Tested cameras:
-
-The following cameras have been used with this driver:
-
-- Blackfly S (USB3, GigE)
-- Blackfly (GigE)
-- Grashopper (USB3)
-- Chameleon (USB3) tested on firmware v1.13.3.00
-
-Note: if you get other cameras to work, *please report back*, ideally
-submit a pull request with the camera config file you have created.
+NOTE: This code is forked from Bernd Pfrommer's repository which is not written or supported by FLIR.
 
 ## Supported platforms
 
@@ -23,28 +10,16 @@ Software:
 
 - Ubuntu 20.04 LTS
 - ROS2 Galactic and Foxy
-- Spinnaker 2.6.0.157 (other versions may work as well but this is
-  what the continuous integration builds are using)
+- Spinnaker 2.6.0.157 (other versions may work as well but this is what the continuous integration builds are using)
 
-The code compiles under Ubuntu 22.04 / Humble but has not been tested
-thoroughly with real hardware. Currently known to work with Blackfly S (USB3)
-using Spinnaker 2.6.0.157.
+The code compiles under Ubuntu 22.04 / Humble but has not been tested thoroughly with real hardware. Currently known to work with Blackfly S (USB3) using Spinnaker 2.6.0.157.
 
 
 ## Features
 
-Basic features are supported like setting exposure, gain, and external
-triggering. It's straight forward to support new camera types and features by
-editing the camera definition (.cfg) files. Unless you need new pixel
-formats you may not have to modify any source code. The code is meant
-to be a thin wrapper for setting the features available in FLIR's
-SpinView program. The driver has following parameters,
-*in addition to the parameters defined in the .cfg files*:
+Basic features are supported like setting exposure, gain, and external triggering. It's straight forward to support new camera types and features by editing the camera definition (.cfg) files. Unless you need new pixel formats you may not have to modify any source code. The code is meant to be a thin wrapper for setting the features available in FLIR's SpinView program. The driver has following parameters, *in addition to the parameters defined in the .cfg files*:
 
-- ``serial_number``: must have the serial number of the camera. If you
-  don't know it, put in anything you like and
-  the driver will croak with an error message, telling you what
-  cameras serial numbers are available
+- ``serial_number``: must have the serial number of the camera. If you don't know it, put in anything you like and the driver will croak with an error message, telling you what cameras serial numbers are available
 - ``frame_id``: the ROS frame id to put in the header of the published
   image messages.
 - ``camerainfo_url``: where to find the camera calibration yaml file.
