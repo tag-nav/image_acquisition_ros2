@@ -72,53 +72,25 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -D
 . install/setup.bash
 ```
 
+## Enable Jumbo packet 
+
+Jumbo Packet is strongly recommended to be enabled for the network adapter and the camera, in order to greatly improve streaming results.
+
+Run ifconfig and find the network adapter that the cameras are connected to (eg. enp15s0):
+```
+ifconfig
+```
+To temporarily update enable Jumbo Packet until the next reboot, for a specific network adapter, eg. enp15s0, run the following commands:
+```
+sudo ifconfig enp15s0 mtu 9000
+```
+
 ## Example usage
 
 How to launch the example file:
 ```
-ros2 launch flir_spinnaker_ros2 blackfly_s.launch.py camera_name:=blackfly_0 serial:="'20435008'"
+ros2 launch flir_spinnaker_ros2 blackfly_s_gige.launch.py camera_name:=blackfly_0 serial:="'20435008'"
 ```
-
-## Setting up GigE cameras
-
-The Spinnaker SDK abstracts away the transport layer so a GigE camera
-should work the same way as USB3: you point it to the serial
-number and you're set.
-
-There are a few GigE-specific settings in the Transport Layer Control
-group that are important, in particular enabling jumbo frames from the
-camera per FLIR's recommendations. The following line in your
-camera-specific config file will create a ROS2 parameter
-``gev_scps_packet_size``:
-```
-gev_scps_packet_size int "TransportLayerControl/GigEVision/GevSCPSPacketSize"
-```
-that you can then set in your ROS2 launch file:
-```
- "gev_scps_packet_size": 9000
-```
-As far as setting up the camera's IP address: you can set up DHCP on
-your network or configure a static persistent IP using SpinView 
-in "Transport Layer Control">"GigE Vision". Check the box for "Current
-IP Configuration Persistent IP" first to enable it, then set your
-desired addresses under "Persistent IP Address", "Persistent Subnet
-Mask" and "Persistent Gateway". NOTE: these look like regular IPs, but
-to set them you have to enter the 32-bit integer representation of the
-IP address/mask. By hand/calculator: convert the IP octets from
-decimal to hex, then combine them and convert to a 32-bit integer, ex:
-192.168.0.1 -> 0xC0A80001 -> 3232235521.
-
-The "Transport Layer Control">"GigE Vision" section of SpinView is
-also where you'll find that "SCPS Packet Size" setting, which you can
-change when not capturing frames, and verify it works in SpinView and
-without needing to spin up a custom launch file to get started, though
-it helps, and you'll probably want one anyway to specify your camera's
-serial number.
-
-For more tips on GigE setup look at FLIR's support pages
-[here](https://www.flir.com/support-center/iis/machine-vision/knowledge-base/lost-ethernet-data-packets-on-linux-systems/)
-and
-[here](https://www.flir.com/support-center/iis/machine-vision/application-note/troubleshooting-image-consistency-errors/).
 
 ## Camera synchronization
 
